@@ -40,6 +40,7 @@ syn keyword funkritFunction map reduce head tail F T add addIndex adjust all all
 
 syn match funkritOperator "[/.+*?&!]"
 syn match funkritDeclaration /\s*[_a-zA-Z$][a-zA-Z$_0-9]*\s*=/he=e-1
+syn match funkritDeclaration /\s*[_a-zA-Z$][a-zA-Z$_0-9<,>]*\s*:=/he=e-2
 
 syn region funkritRegexpString     start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gim]\{0,2\}\s*$+ end=+/[gim]\{0,2\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
 
@@ -58,12 +59,20 @@ syn match funkritOperator "!>>"
 syn match funkritOperator ">>[=]"
 syn match funkritOperator ">>"
 syn match funkritOperator "<|>"
+syn match funkritOperator "<^>"
 syn match funkritOperator ">=>"
 syn match funkritOperator "<[*]>"
 
 syn match funkritNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
 
-syn match funkritType "\w\+\s*::.\+"
+syn match funkritType "\s*\w\+\s*::.\+"
+syn match funkritType "\s*\w\+<[a-zA-Z,]\+>\s*::.\+"
+
+syn region literal matchgroup=PreProc start=/@\</ end=/\>/ oneline
+syn region Text matchgroup=PreProc start="@[[]" end="[]]" oneline
+
+syn region literal matchgroup=PreProc start=/#\</ end=/\>/ oneline
+syn region Text matchgroup=PreProc start="#[[]" end="[]]" oneline
 
 syn region literal start="'" end="'"
 syn region literal start="\"" end="\""
